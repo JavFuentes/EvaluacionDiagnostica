@@ -10,7 +10,7 @@ public class EvaluacionDiagnostica {
 	private static ArrayList<String[]> usuarios = new ArrayList<>();
 		
 	//Arreglo que contiene los datos de cada usuario
-	private static String[] datos = new String[10];
+	private static String[] datos = new String[11];
 		
 	//Variables de usuario
 	private static String perfil = "";
@@ -30,15 +30,20 @@ public class EvaluacionDiagnostica {
 	//Administrativo
 	private static String funcion = "";
 	private static String nombreSuperior = "";
+	
+	//Contadores de tipos de usuarios	
+	private static int cantidadClientes = 0;
+	private static int cantidadProfesionales = 0;
+	private static int cantidadAdministrativos = 0;
 			
 	private static Scanner sc = new Scanner(System.in);		
 		
 	public static void main(String[] args) {
 		System.out.println("Bienvenido/a!");
-		System.out.println("Para acceder al menu principal por primera vez, "
+		System.out.println("Para acceder al menu principal, "
 				+ "debe ingresar un usuario de cada perfil. ");
 		
-		System.out.println("[Ingrese a nuestro primer cliente]");
+		System.out.println("[Ingrese a nuestro primer cliente]");		
 		ingresarCliente();
 		
 		System.out.println("[Ingrese a nuestro primer profesional]");
@@ -56,8 +61,7 @@ public class EvaluacionDiagnostica {
 	
 	public static void mostrarMenu() {
 		String opcion = "";
-		
-		//Se imprime el menu		
+						
 		System.out.println("----------------------------------");
 		System.out.println("   Menu Principal");
 		System.out.println("----------------------------------");
@@ -71,6 +75,11 @@ public class EvaluacionDiagnostica {
 		System.out.println("Escoja una opcion: ");
 		
 		opcion = sc.nextLine();
+		while(!opcion.matches("[1-6]{1}")) {
+			System.out.println("[Opcion Incorrecta]");
+			System.out.println("Escoja una opcion: ");
+			opcion = sc.nextLine();
+		}
 		
 			switch(opcion) {
 				case "1":
@@ -130,7 +139,7 @@ public class EvaluacionDiagnostica {
 		for (String[] usuario : usuarios) {
 		    for (String dato : usuario) {
 		    	if(dato.equals("")) {
-		    		System.out.print(" [ ] ");
+		    		//System.out.print(" [ ] ");
 		    	}else {
 		    		System.out.print(" [" + dato + "] ");
 		    	}		    
@@ -141,33 +150,160 @@ public class EvaluacionDiagnostica {
 	}
 	
 	public static void contarUsuariosPorCategoria() {	
-		int cantidadClientes = 0;
-		int cantidadProfesionales = 0;
-		int cantidadAdministrativos = 0;
+		for (String[] usuario : usuarios) {
+			if(usuario[10].equals("1")) {
+				cantidadClientes++;
+			}else if(usuario[10].equals("2")) {
+				cantidadProfesionales++;
+			}else if(usuario[10].equals("3")){
+				cantidadAdministrativos++;
+			}			    
+		}		
 		
-		System.out.println("Clientes: ");
-		System.out.println("Profesionales: ");
-		System.out.println("Administrativos: ");		   	 
+		System.out.println("Total Clientes: " + cantidadClientes);
+		System.out.println("Total Profesionales: " + cantidadProfesionales);
+		System.out.println("Total Administrativos: " + cantidadAdministrativos);	
+		System.out.println();
+		
+		//Luego de imprimir se limpian los contadores
+		cantidadClientes = 0;
+		cantidadProfesionales = 0;
+		cantidadAdministrativos = 0;
+		
+		mostrarMenu();
 	}
 	
 	public static void modificarUsuario() {	
+		System.out.println("Ingrese el RUT del usuario que desea modificar: ");
+		rut = sc.nextLine();
 		
+		for (String[] usuario : usuarios) {
+			if(usuario[2].equals(rut)) {
+				System.out.println("Ingrese su nombre: ");
+			    nombre = sc.nextLine();
+			    //Se valida que el usuario no deje el campo vacío
+		  		while(nombre.equals("")){
+		  			System.out.println("Campo obligatorio. Ingrese su nombre: ");
+		  			nombre = sc.nextLine();
+		  		}				    
+			    System.out.println("Fecha de nacimiento: " );
+			    fechaNacimiento = sc.nextLine();
+			    
+			    if(usuario[10].equals("1")) {
+			    	 System.out.println("Ingrese su direccion: ");
+			 	    direccion = sc.nextLine();
+			 	    //Se valida que el largo de la cadena no exceda el limite estblecido
+			 		while(direccion.equals("")){
+			 			System.out.println("Campo obligatorio. ");
+			 			direccion = sc.nextLine();
+			 		}		
+			 	      
+			 	    System.out.println("Ingrese su telefono: ");
+			 	    telefono = sc.nextLine();
+			 	    //Se valida el largo de la cadena
+			 		while(!telefono.matches("[0-9]{6,15}")){
+			 			System.out.println("[Telefono invalido]\nIngrese su telefono: ");
+			 			telefono = sc.nextLine();
+			 		}
+			 	      
+			 	    System.out.println("Ingrese la cantidad de empleados: ");
+			 	    cantidadEmpleados = sc.nextLine(); 
+			 	    
+			 	    usuario[0] = nombre;
+					usuario[1] = fechaNacimiento;
+					usuario[2] = rut;
+					usuario[3] = direccion;
+					usuario[4] = telefono;
+					usuario[5] = cantidadEmpleados;
+					usuario[6] = anhiosExperiencia;
+					usuario[7] = departamento;
+					usuario[8] = funcion;
+					usuario[9] = nombreSuperior;									
+					
+			 	    System.out.println("[Usuario Modificado]");
+			 	    mostrarMenu();
+			    }else if (usuario[10].equals("2")) {
+			    	 System.out.println("Indique cuantos años de experiencia tiene en el campo: ");
+			 	    anhiosExperiencia = sc.nextLine();
+			 	    
+			 	    System.out.println("Departamento: ");
+			 	    departamento = sc.nextLine();
+			 	    //Se valida que el campo no esté vacío
+			 	  	while(departamento.equals("")){
+			 	  		System.out.println("Campo obligatorio. ");
+			 	  		departamento = sc.nextLine();
+			 	 	}	
+			 	  	
+			 	    usuario[0] = nombre;
+					usuario[1] = fechaNacimiento;
+					usuario[2] = rut;
+					usuario[3] = direccion;
+					usuario[4] = telefono;
+					usuario[5] = cantidadEmpleados;
+					usuario[6] = anhiosExperiencia;
+					usuario[7] = departamento;
+					usuario[8] = funcion;
+					usuario[9] = nombreSuperior;
+					
+			 	    System.out.println("[Usuario Modificado]");
+			 	  	mostrarMenu();
+			    }else if(usuario[10].equals("3")) {
+			    	System.out.println("Funcion: ");
+				    funcion = sc.nextLine();
+				    //Se valida que el campo no esté vacío
+				  	while(funcion.equals("")){
+				  		System.out.println("Campo obligatorio.");
+				  		funcion = sc.nextLine();
+				 	}	
+				       
+				    System.out.println("Indique el nombre de su superior: ");
+				    nombreSuperior = sc.nextLine();	
+				    
+				    usuario[0] = nombre;
+					usuario[1] = fechaNacimiento;
+					usuario[2] = rut;
+					usuario[3] = direccion;
+					usuario[4] = telefono;
+					usuario[5] = cantidadEmpleados;
+					usuario[6] = anhiosExperiencia;
+					usuario[7] = departamento;
+					usuario[8] = funcion;
+					usuario[9] = nombreSuperior;					
+					
+				    System.out.println("[Usuario Modificado]");
+				    mostrarMenu();
+			    }
+			} 
+		}
+		System.out.println("[RUT no encontrado]");
+		mostrarMenu();
 	}
 	
 	public static void eliminarUsuario() {	
+		System.out.println("Ingrese el RUT del usuario que desea eliminar: ");
+		rut = sc.nextLine();
 		
+		for (String[] usuario : usuarios) {
+			if(usuario[2].equals(rut)) {
+				usuarios.remove(usuario);
+				System.out.println("[Usuario Eliminado]");
+				mostrarMenu();
+			}
+		}
+		System.out.println("[Rut No tiene coincidencias]");
+		mostrarMenu();
 	}
 	
 	public static void salir() {
 		String confirmacion = "";
 		System.out.println("[Si cierra el programa se perderan todos los datos]");
 		System.out.println("Escriba OFF confirma que desea salir: ");
+		confirmacion = sc.nextLine();
 		
 		if(confirmacion.equals("OFF") || confirmacion.equals("off")) {
 			System.out.println("[Sistema OFF]");
 			System.exit(0);
-		}
-		else {
+		} else {
 			mostrarMenu();
 		}		
 	}
@@ -191,6 +327,7 @@ public class EvaluacionDiagnostica {
 	}	
 			
 	public static void ingresarCliente() {
+		perfil = "1";
 		ingresarUsuario();
 		
 	    System.out.println("Ingrese su direccion: ");
@@ -216,6 +353,7 @@ public class EvaluacionDiagnostica {
 	}
 	
 	public static void ingresarProfesional() {
+		perfil = "2";
 		ingresarUsuario();
 	     
 	    System.out.println("Indique cuantos años de experiencia tiene en el campo: ");
@@ -231,7 +369,8 @@ public class EvaluacionDiagnostica {
 	  	guardarDatos();
 	}
 	
-	public static void ingresarAdministrativo() {		
+	public static void ingresarAdministrativo() {
+		perfil = "3";
 		ingresarUsuario();
 		
 	    System.out.println("Funcion: ");
@@ -260,7 +399,7 @@ public class EvaluacionDiagnostica {
 	    System.out.println("Fecha de nacimiento: " );
 	    fechaNacimiento = sc.nextLine();
 	    
-	    System.out.println("Ingrese su RUT: ");
+	    System.out.println("Ingrese su RUT, sin puntos, ni guion, ni digito verificador: ");
 	    rut = sc.nextLine();
 	    //Se valida que el rut sea verídico	  
 	  	while(!rut.matches("[0-9]{6,8}")){			
@@ -271,8 +410,9 @@ public class EvaluacionDiagnostica {
 	}
 	
 	public static void guardarDatos() {		
-		usuarios.add(new String[]{nombre, fechaNacimiento, rut, direccion, telefono, cantidadEmpleados, anhiosExperiencia, 
-			departamento, funcion,nombreSuperior});
+		usuarios.add(new String[]{nombre, fechaNacimiento, rut, direccion, telefono, cantidadEmpleados, 
+				anhiosExperiencia, departamento, funcion, nombreSuperior, perfil});
+		
 		//Se limpian las variables		
 		perfil = "";
 		nombre = "";
