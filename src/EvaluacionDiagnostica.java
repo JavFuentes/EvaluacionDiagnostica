@@ -8,10 +8,7 @@ public class EvaluacionDiagnostica {
 		
 	//Matriz de Datos de Usuario
 	private static ArrayList<String[]> usuarios = new ArrayList<>();
-		
-	//Arreglo que contiene los datos de cada usuario
-	private static String[] datos = new String[11];
-		
+				
 	//Variables de usuario
 	private static String perfil = "";
 	private static String nombre = "";
@@ -39,21 +36,8 @@ public class EvaluacionDiagnostica {
 	private static Scanner sc = new Scanner(System.in);		
 		
 	public static void main(String[] args) {
-		System.out.println("Bienvenido/a!");
-		System.out.println("Para acceder al menu principal, "
-				+ "debe ingresar un usuario de cada perfil. ");
 		
-		System.out.println("[Ingrese a nuestro primer cliente]");		
-		ingresarCliente();
-		
-		System.out.println("[Ingrese a nuestro primer profesional]");
-		ingresarProfesional(); 
-		
-		System.out.println("[Ingrese a nuestro primer administrativo]");
-		ingresarAdministrativo(); 
-		
-		System.out.println("[Sistema configurado correctamente]");
-		
+		configuracionInicial();	
 		mostrarMenu();
 		
 		sc.close();
@@ -426,4 +410,22 @@ public class EvaluacionDiagnostica {
 		funcion = "";
 		nombreSuperior = "";		
 	}	
+	public static void configuracionInicial(){
+		System.out.println("Bienvenido/a!");
+		System.out.println("Para acceder al menu principal, primero "
+				+ "debe ingresar un usuario de cada perfil. ");
+		System.out.println("-----------------------"
+				+ "----------------------------------------------------------");
+		
+		System.out.println("[Ingrese a nuestro primer cliente]");		
+		ingresarCliente();
+		
+		System.out.println("[Ingrese a nuestro primer profesional]");
+		ingresarProfesional(); 
+		
+		System.out.println("[Ingrese a nuestro primer administrativo]");
+		ingresarAdministrativo(); 
+		
+		System.out.println("[Sistema configurado correctamente]");
+	}
 }
