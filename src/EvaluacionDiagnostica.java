@@ -176,7 +176,7 @@ public class EvaluacionDiagnostica {
 			    if(usuario[10].equals("1")) {
 			    	 System.out.println("Ingrese su direccion: ");
 			 	    direccion = sc.nextLine();
-			 	    //Se valida que el largo de la cadena no exceda el limite estblecido
+			 	    //Se valida que el campo no esté vacío
 			 		while(direccion.equals("")){
 			 			System.out.println("Campo obligatorio. ");
 			 			direccion = sc.nextLine();
@@ -259,6 +259,7 @@ public class EvaluacionDiagnostica {
 			    }
 			} 
 		}
+		
 		System.out.println("[RUT no encontrado]");
 		mostrarMenu();
 	}
@@ -316,7 +317,7 @@ public class EvaluacionDiagnostica {
 		
 	    System.out.println("Ingrese su direccion: ");
 	    direccion = sc.nextLine();
-	    //Se valida que el largo de la cadena no exceda el limite estblecido
+	  //Se valida que el campo no esté vacío
 		while(direccion.equals("")){
 			System.out.println("Campo obligatorio. ");
 			direccion = sc.nextLine();
@@ -410,6 +411,7 @@ public class EvaluacionDiagnostica {
 		funcion = "";
 		nombreSuperior = "";		
 	}	
+	
 	public static void configuracionInicial(){
 		System.out.println("Bienvenido/a!");
 		System.out.println("Para acceder al menu principal, primero "
