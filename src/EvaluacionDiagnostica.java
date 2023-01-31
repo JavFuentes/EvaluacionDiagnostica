@@ -143,7 +143,7 @@ public class EvaluacionDiagnostica {
 				cantidadAdministrativos++;
 			}			    
 		}		
-		
+		System.out.println();
 		System.out.println("Total Clientes: " + cantidadClientes);
 		System.out.println("Total Profesionales: " + cantidadProfesionales);
 		System.out.println("Total Administrativos: " + cantidadAdministrativos);	
@@ -282,7 +282,7 @@ public class EvaluacionDiagnostica {
 	public static void salir() {
 		String confirmacion = "";
 		System.out.println("[Si cierra el programa se perderan todos los datos]");
-		System.out.println("Escriba OFF confirma que desea salir: ");
+		System.out.println("Escriba OFF si confirma que desea salir: ");
 		confirmacion = sc.nextLine();
 		
 		if(confirmacion.equals("OFF") || confirmacion.equals("off")) {
@@ -317,7 +317,7 @@ public class EvaluacionDiagnostica {
 		
 	    System.out.println("Ingrese su direccion: ");
 	    direccion = sc.nextLine();
-	  //Se valida que el campo no esté vacío
+	    //Se valida que el campo no esté vacío
 		while(direccion.equals("")){
 			System.out.println("Campo obligatorio. ");
 			direccion = sc.nextLine();
